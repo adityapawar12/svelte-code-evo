@@ -10,6 +10,12 @@
   const isPromoted = true;
   const promoted = true;
   const num = "Hi";
+  const names = ["Bruce", "Clark", "Diana"];
+  const fullNames = [
+    { first: "Bruce", last: "Wayne" },
+    { first: "Clark", last: "Kent" },
+    { first: "Princess", last: "Diana" },
+  ];
 </script>
 
 <!-- MARKUP/HTML SECTION IN SVELTE FILE FOR HTML TO RENDER -->
@@ -49,6 +55,24 @@
   {:else}
     <h2>Not a number.</h2>
   {/if}
+
+  <!-- LIST RENDERING -->
+  {#each names as name, index}
+    <h2>{index + 1} {name}</h2>
+  {/each}
+
+  {#each fullNames as fullName, index}
+    <h2>{index + 1} {`${fullName.first} ${fullName.last}`}</h2>
+  {/each}
+
+  <!-- LIST RENDERING WITH KEYS [ALWAYS USE KEYS FOR LISTS] -->
+  {#each names as name, index (name)}
+    <h2>{index + 1} {name}</h2>
+  {/each}
+
+  {#each fullNames as fullName, index (fullName.first)}
+    <h2>{index + 1} {`${fullName.first} ${fullName.last}`}</h2>
+  {/each}
 </main>
 
 <!-- STYLE SECTION IN SVELTE FILE FOR CSS/STYLING -->
