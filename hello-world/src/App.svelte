@@ -1,21 +1,45 @@
 <!-- SCRIPT SECTION IN SVELTE FILE FOR LOGIC -->
 <script>
+  // BASIC TEXT BINDING
   const name = "Freqs";
+
+  // BASIC HTML BINDING
   const channel = "<b>freq808</b>";
   const hack = `<a href='#' onclick="return alert('you have been hacked!')">Win the Price</a>`;
+
+  // BASIC ATTRIBUTE BINDING
   const headingId = "heading";
   const id = "heading2";
   const disabled = true;
   const status = "success";
+
+  // BASIC CLASS BINDING
   const isPromoted = true;
   const promoted = true;
-  const num = "Hi";
+
+  // BASIC CONDITIONAL RENDERING
+  const num = 0;
+
+  // BASIC LIST RENDERING
   const names = ["Bruce", "Clark", "Diana"];
   const fullNames = [
     { first: "Bruce", last: "Wayne" },
     { first: "Clark", last: "Kent" },
     { first: "Princess", last: "Diana" },
   ];
+
+  // BASIC EVENT HANDLING
+  let count = 0;
+
+  const handleClick = (event) => {
+    console.log("event >>> ", event);
+    count += 1;
+  };
+
+  const handleClickWithStepsize = (event, stepSize) => {
+    console.log("event >>> ", event);
+    count += stepSize;
+  };
 </script>
 
 <!-- MARKUP/HTML SECTION IN SVELTE FILE FOR HTML TO RENDER -->
@@ -56,7 +80,7 @@
     <h2>Not a number.</h2>
   {/if}
 
-  <!-- LIST RENDERING -->
+  <!-- BASIC LIST RENDERING -->
   {#each names as name, index}
     <h2>{index + 1} {name}</h2>
   {/each}
@@ -65,7 +89,7 @@
     <h2>{index + 1} {`${fullName.first} ${fullName.last}`}</h2>
   {/each}
 
-  <!-- LIST RENDERING WITH KEYS [ALWAYS USE KEYS FOR LISTS] -->
+  <!-- BASIC LIST RENDERING WITH KEYS [ALWAYS USE KEYS FOR LISTS] -->
   {#each names as name, index (name)}
     <h2>{index + 1} {name}</h2>
   {/each}
@@ -73,6 +97,19 @@
   {#each fullNames as fullName, index (fullName.first)}
     <h2>{index + 1} {`${fullName.first} ${fullName.last}`}</h2>
   {/each}
+
+  <!-- BASIC EVENT HANDLING -->
+  <button on:click={() => (count = count + 1)}>Count {count + 1}</button>
+  <button on:click={handleClick}>Count {count + 1}</button>
+  <button on:click={(event) => handleClickWithStepsize(event, 1)}
+    >Count {count + 1}</button
+  >
+  <button on:click={(event) => handleClickWithStepsize(event, 5)}
+    >Count {count + 1}</button
+  >
+  <button on:click={(event) => handleClickWithStepsize(event, 10)}
+    >Count {count + 1}</button
+  >
 </main>
 
 <!-- STYLE SECTION IN SVELTE FILE FOR CSS/STYLING -->
