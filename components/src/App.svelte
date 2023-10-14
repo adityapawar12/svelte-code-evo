@@ -2,8 +2,11 @@
   import { setContext } from "svelte";
 
   // IMPORTING OUR CUSTOM COMPONENT
-  import Greet from "./components/Greet.svelte";
+  import Greet from "./components/component-props/Greet.svelte";
   import ComponentA from "./components/context-comps/ComponentA.svelte";
+  import Popup from "./components/component-events/Popup.svelte";
+  import Outer from "./components/event-forwarding/Outer.svelte";
+  import Button from "./components/event-forwarding/Button.svelte";
 
   // VALUES FOR PROPS
   const name = "Aditya";
@@ -19,6 +22,23 @@
   const userName = "Aditya Pawar";
 
   setContext("username-context", userName);
+
+  // COMPONENT EVENTS
+  let showPopupFlag = false;
+
+  const showPopup = () => {
+    showPopupFlag = true;
+  };
+
+  const hidePopup = (event) => {
+    console.log("event detail value >>> ", event.detail);
+    showPopupFlag = false;
+  };
+
+  // EVENT FORWARDING
+  const handleGreetings = () => {
+    console.log("Greet inside the app component.");
+  };
 </script>
 
 <main>
@@ -38,6 +58,18 @@
   <h3>{`User Name in App : ${userName}`}</h3>
 
   <ComponentA />
+
+  <!-- COMPONENT EVENTS -->
+  <button on:click={showPopup}>Show Popup</button>
+  {#if showPopupFlag}
+    <Popup on:close={hidePopup} />
+  {/if}
+
+  <!-- EVENT FORWARDING -->
+  <Outer on:greet={handleGreetings} />
+
+  <!-- DOM EVENT FORWARDING -->
+  <Button on:click={() => console.log("Button click event forwarded.")} />
 </main>
 
 <style>
@@ -46,13 +78,6 @@
     padding: 1em;
     max-width: 240px;
     margin: 0 auto;
-  }
-
-  h1 {
-    color: #ff3e00;
-    text-transform: uppercase;
-    font-size: 4em;
-    font-weight: 100;
   }
 
   @media (min-width: 640px) {
