@@ -7,6 +7,9 @@
   import Popup from "./components/component-events/Popup.svelte";
   import Outer from "./components/event-forwarding/Outer.svelte";
   import Button from "./components/event-forwarding/Button.svelte";
+  import Card from "./components/component-slots/Card.svelte";
+  import NameList from "./components/component-slots/NameList.svelte";
+  import ChildStyles from "./components/component-styling/ChildStyles.svelte";
 
   // VALUES FOR PROPS
   const name = "Aditya";
@@ -70,9 +73,68 @@
 
   <!-- DOM EVENT FORWARDING -->
   <Button on:click={() => console.log("Button click event forwarded.")} />
+
+  <!-- COMPONENT SLOTS -->
+  <!-- <Card content={"card content 1"} />
+  <Card content={"card content 2"} /> -->
+
+  <!-- COMPONENTS WITH SLOT -->
+  <!-- <Card><p>card content</p></Card>
+  <Card><h2>card content</h2></Card>
+  <Card><img src="https://picsum.photos/200" alt /></Card> -->
+
+  <!-- COMPONENTS WITH DEFAULT SLOT CONTENT -->
+  <!-- <Card /> -->
+
+  <!-- COMPONENTS WITH MULTIPLE/NAMED SLOT CONTENT -->
+  <Card>
+    <div slot="header">
+      <h3>Header</h3>
+    </div>
+    <div slot="content">
+      <img src="https://picsum.photos/200" alt />
+    </div>
+    <!-- <div slot="footer">
+      <button>View details</button>
+    </div> -->
+  </Card>
+
+  <!-- COMPONENT SLOT WITH PROPS -->
+  <NameList>
+    <h3 slot="hero" let:firstName let:lastName>
+      {firstName}
+      {lastName}
+    </h3>
+  </NameList>
+
+  <NameList>
+    <h3 slot="hero" let:firstName let:lastName>
+      {lastName}
+      {firstName}
+    </h3>
+  </NameList>
+
+  <NameList>
+    <h3 slot="hero" let:firstName let:lastName>
+      {lastName}
+    </h3>
+  </NameList>
+
+  <!-- COMPONENT STYLES -->
+  <h5>App component global styles.</h5>
+  <h4>App component text.</h4>
+  <ChildStyles />
 </main>
 
 <style>
+  :global(h5) {
+    color: violet;
+  }
+
+  h4 {
+    color: orange;
+  }
+
   main {
     text-align: center;
     padding: 1em;
