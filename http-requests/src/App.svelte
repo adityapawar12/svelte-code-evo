@@ -4,6 +4,10 @@
   import TabA from "./components/dynamic-components/TabA.svelte";
   import TabB from "./components/dynamic-components/TabB.svelte";
   import TabC from "./components/dynamic-components/TabC.svelte";
+  import Counter, {
+    // MODULE CONTEXT
+    getTotalCount,
+  } from "./components/module-context/Counter.svelte";
 
   // NORMAL APRROACH
   // let activeTab = "TabA";
@@ -41,6 +45,12 @@
   <button on:click={() => (activeTab = TabC)}>Tab C</button>
 
   <svelte:component this={activeTab} />
+
+  <!-- MODULE CONTEXT -->
+  <Counter />
+  <Counter />
+  <Counter />
+  <button on:click={() => alert(getTotalCount())}>Show total count</button>
 </main>
 
 <style>
